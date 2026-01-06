@@ -88,19 +88,8 @@ export default async function DashboardPage() {
   const thirtyDaysFromNow = new Date(today);
   thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
 
-  // Fetch statistics, groups, and upcoming events data
-  const [peopleCount, groupsCount, relationshipsCount, groups, importantDates, peopleWithContactReminders] = await Promise.all([
-    prisma.person.count({
-      where: { userId: session.user.id },
-    }),
-    prisma.group.count({
-      where: { userId: session.user.id },
-    }),
-    prisma.relationship.count({
-      where: {
-        person: { userId: session.user.id },
-      },
-    }),
+  // Fetch groups and upcoming events data
+  const [groups, importantDates, peopleWithContactReminders, peopleCount] = await Promise.all([
     prisma.group.findMany({
       where: { userId: session.user.id },
       orderBy: { name: 'asc' },
@@ -135,6 +124,9 @@ export default async function DashboardPage() {
         contactReminderInterval: true,
         contactReminderIntervalUnit: true,
       },
+    }),
+    prisma.person.count({
+      where: { userId: session.user.id },
     }),
   ]);
 
@@ -211,90 +203,6 @@ export default async function DashboardPage() {
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          {/* Statistics Cards */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 mb-8">
-            <Link
-              href="/people"
-              className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow"
-            >
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                      <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Total People
-                      </dt>
-                      <dd className="text-3xl font-semibold text-gray-900 dark:text-white">
-                        {peopleCount}
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              href="/groups"
-              className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow"
-            >
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
-                      <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Groups
-                      </dt>
-                      <dd className="text-3xl font-semibold text-gray-900 dark:text-white">
-                        {groupsCount}
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              href="/relationship-types"
-              className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow"
-            >
-              <div className="p-5">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
-                      <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Relationships
-                      </dt>
-                      <dd className="text-3xl font-semibold text-gray-900 dark:text-white">
-                        {relationshipsCount}
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-
           {/* Network Graph */}
           {peopleCount > 0 ? (
             <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-8">
