@@ -314,11 +314,15 @@ export default function AccountManagement({ groups, peopleCount }: AccountManage
 
           {exportMode === 'groups' && (
             <div className="pl-6">
+              <p className="text-sm text-muted mb-2">
+                {t('selectGroups')}
+              </p>
               <GroupsSelector
                 availableGroups={groups}
                 selectedGroupIds={selectedGroupIds}
                 onChange={setSelectedGroupIds}
                 allowCreate={false}
+                placeholder={t('selectGroupsPlaceholder')}
               />
               {selectedGroupIds.length > 0 && (
                 <p className="text-xs text-muted mt-2">

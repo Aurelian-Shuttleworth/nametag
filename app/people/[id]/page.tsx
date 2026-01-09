@@ -27,8 +27,7 @@ function getYearsAgo(date: Date, t: TranslationFn): string | null {
   const adjustedYears = (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) ? years - 1 : years;
 
   if (adjustedYears < 1) return null;
-  const unit = adjustedYears === 1 ? t('year') : t('years');
-  return `${adjustedYears} ${unit} ${t('ago')}`;
+  return adjustedYears === 1 ? t('oneYearAgo') : t('yearsAgo', { years: adjustedYears });
 }
 
 function getReminderDescription(
@@ -46,8 +45,8 @@ function getReminderDescription(
   }
   if (date.reminderType === 'RECURRING' && date.reminderInterval && date.reminderIntervalUnit) {
     const unit = date.reminderIntervalUnit.toLowerCase();
-    const unitSingular = date.reminderInterval === 1 ? unit.slice(0, -1) : unit;
-    return t('remindEvery', { interval: date.reminderInterval, unit: unitSingular });
+    const translatedUnit = date.reminderInterval === 1 ? t(unit.slice(0, -1)) : t(unit);
+    return t('remindEvery', { interval: date.reminderInterval, unit: translatedUnit });
   }
   return null;
 }
@@ -63,8 +62,8 @@ function getContactReminderDescription(
   if (!person.contactReminderEnabled) return null;
   if (person.contactReminderInterval && person.contactReminderIntervalUnit) {
     const unit = person.contactReminderIntervalUnit.toLowerCase();
-    const unitSingular = person.contactReminderInterval === 1 ? unit.slice(0, -1) : unit;
-    return t('remindAfter', { interval: person.contactReminderInterval, unit: unitSingular });
+    const translatedUnit = person.contactReminderInterval === 1 ? t(unit.slice(0, -1)) : t(unit);
+    return t('remindAfter', { interval: person.contactReminderInterval, unit: translatedUnit });
   }
   return null;
 }

@@ -29,12 +29,35 @@
     "or": "or",
     "optional": "optional"
   },
+  "passwordStrength": {
+    "veryWeak": "Very Weak",
+    "weak": "Weak",
+    "medium": "Medium",
+    "strong": "Strong",
+    "veryStrong": "Very Strong",
+    "requirements": {
+      "minLength": "At least 8 characters",
+      "uppercase": "One uppercase letter (A-Z)",
+      "lowercase": "One lowercase letter (a-z)",
+      "number": "One number (0-9)",
+      "specialChar": "One special character (!@#$%^&*)"
+    }
+  },
   "nav": {
     "dashboard": "Dashboard",
     "people": "People",
     "groups": "Groups",
     "relationshipTypes": "Relationship Types",
-    "settings": "Settings"
+    "settings": "Settings",
+    "search": {
+      "placeholder": "Search people...",
+      "searching": "Searching...",
+      "noResults": "No people found matching \"{searchTerm}\""
+    },
+    "userMenu": {
+      "settings": "Settings",
+      "signOut": "Sign out"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -42,7 +65,23 @@
     "profile": {
       "title": "Profile",
       "description": "Name, email, and personal info",
-      "pageDescription": "Manage your personal information and how others see you."
+      "pageDescription": "Manage your personal information and how others see you.",
+      "name": "Name",
+      "surname": "Surname",
+      "nickname": "Nickname",
+      "email": "Email",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "successUpdate": "Profile updated successfully",
+      "errorUpdate": "Failed to update profile",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again.",
+      "emailChange": {
+        "title": "Confirm Email Change",
+        "message": "You are about to change your email address to",
+        "warning": "A verification email will be sent to your new address. You will be logged out and won't be able to log in until you verify your new email.",
+        "cancel": "Cancel",
+        "confirm": "Confirm & Log Out"
+      }
     },
     "appearance": {
       "title": "Appearance",
@@ -52,8 +91,13 @@
       "themePreferredLabel": "Choose your preferred theme",
       "themeLightLabel": "Light",
       "themeDarkLabel": "Dark",
+      "themeSuccess": "Theme updated successfully!",
+      "themeError": "Failed to update theme. Please try again.",
       "dateFormatTitle": "Date Format",
       "dateFormatDescription": "Choose how dates are displayed throughout the app",
+      "dateFormatExample": "Example",
+      "dateFormatSuccess": "Date format updated successfully",
+      "dateFormatError": "Failed to update date format",
       "language": {
         "title": "Language",
         "description": "Choose your preferred language",
@@ -65,7 +109,22 @@
       "title": "Security",
       "description": "Password and authentication",
       "passwordTitle": "Password",
-      "passwordDescription": "Update your password to keep your account secure."
+      "passwordDescription": "Update your password to keep your account secure.",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "updatePassword": "Change Password",
+      "updating": "Changing Password...",
+      "passwordsNoMatch": "New passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "passwordNeedsUppercase": "Password must contain at least one uppercase letter",
+      "passwordNeedsLowercase": "Password must contain at least one lowercase letter",
+      "passwordNeedsNumber": "Password must contain at least one number",
+      "passwordNeedsSpecial": "Password must contain at least one special character (!@#$%^&*)",
+      "errorValidation": "Please fix the errors below",
+      "errorUpdate": "Failed to change password",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again.",
+      "successUpdate": "Password changed successfully"
     },
     "billing": {
       "title": "Billing",
@@ -83,8 +142,74 @@
       "groups": "Groups",
       "reminders": "Reminders",
       "havePromoCode": "Have a Promotion Code?",
+      "promoCode": "Promotion Code",
+      "promoCodePlaceholder": "Enter code",
+      "applyCode": "Apply",
+      "applying": "Applying...",
+      "promoSuccess": "Promotion applied successfully!",
+      "promoError": "Failed to apply promotion",
+      "promoErrorGeneric": "An error occurred. Please try again.",
+      "promoErrors": {
+        "invalidCode": "Invalid promotion code",
+        "notActive": "This promotion is no longer active",
+        "reachedLimit": "This promotion has reached its redemption limit",
+        "notYetActive": "This promotion is not yet active",
+        "expired": "This promotion has expired",
+        "alreadyHavePromo": "You already have an active promotion"
+      },
       "availablePlans": "Available Plans",
-      "paymentHistory": "Payment History"
+      "paymentHistory": "Payment History",
+      "pricing": {
+        "frequencyTitle": "Choose your billing frequency",
+        "frequencySubtitle": "Switch between monthly and yearly pricing",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "save": "Save 17%",
+        "currentPlan": "Current Plan",
+        "mostPopular": "Most Popular",
+        "free": "Free",
+        "perMonth": "/mo",
+        "billedYearly": "billed yearly",
+        "downgradeMessage": "Cancel your current subscription to downgrade",
+        "loading": "Loading...",
+        "upgrade": "Upgrade",
+        "switchPlan": "Switch Plan",
+        "checkoutError": "Failed to create checkout session",
+        "checkoutErrorGeneric": "An error occurred. Please try again.",
+        "tiers": {
+          "free": {
+            "name": "Free",
+            "description": "Get started with basic features",
+            "features": {
+              "people": "Up to 50 people",
+              "groups": "Up to 10 groups",
+              "reminders": "Up to 5 reminders",
+              "tracking": "Basic relationship tracking"
+            }
+          },
+          "personal": {
+            "name": "Personal",
+            "description": "For individuals managing larger networks",
+            "features": {
+              "people": "Up to 1,000 people",
+              "groups": "Up to 500 groups",
+              "reminders": "Up to 100 reminders",
+              "support": "Priority support"
+            }
+          },
+          "pro": {
+            "name": "Pro",
+            "description": "Unlimited access for power users",
+            "features": {
+              "people": "Unlimited people",
+              "groups": "Unlimited groups",
+              "reminders": "Unlimited reminders",
+              "support": "Priority support",
+              "earlyAccess": "Early access to new features"
+            }
+          }
+        }
+      }
     },
     "account": {
       "title": "Account",
@@ -94,6 +219,8 @@
       "exportDescription": "Download your data as a JSON file. This includes people, groups, relationships, and custom relationship types.",
       "exportEverything": "Export everything",
       "exportSpecificGroups": "Export specific groups",
+      "selectGroups": "Select groups to export",
+      "selectGroupsPlaceholder": "Type to search groups...",
       "willExport": "Will export people in selected groups, their group memberships, and relationships between them.",
       "exportButton": "Export Data",
       "exporting": "Exporting...",
@@ -186,7 +313,14 @@
     "inDays": "In {days} days",
     "inWeek": "In 1 week",
     "inWeeks": "In {weeks} weeks",
-    "timeToCatchUp": "Time to catch up"
+    "timeToCatchUp": "Time to catch up",
+    "graph": {
+      "filterByGroups": "Filter by Groups",
+      "filterPlaceholder": "Type to filter by groups...",
+      "noGroupsFound": "No groups found matching",
+      "clusterByGroup": "Cluster by group",
+      "recenterGraph": "Re-center graph"
+    }
   },
   "people": {
     "title": "People",
@@ -249,7 +383,114 @@
     "months": "months",
     "addNewPerson": "Add New Person",
     "backToPerson": "← Back to {name}",
-    "editPerson": "Edit {name}"
+    "editPerson": "Edit {name}",
+    "delete": "Delete",
+    "otherRelationships": "Other Relationships",
+    "addRelationship": "Add Relationship",
+    "editRelationship": "Edit Relationship with {name}",
+    "deleteRelationship": "Delete Relationship",
+    "noRelationshipsYet": "No relationships yet.",
+    "relationshipType": "Relationship Type",
+    "person": "Person",
+    "searchForPerson": "Search for a person...",
+    "optionalNotes": "Optional notes...",
+    "adding": "Adding...",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "deleting": "Deleting...",
+    "deleteRelationshipConfirm": "Are you sure you want to delete the relationship with {name}? This will also remove the reverse relationship.",
+    "deletePersonTitle": "Delete Person",
+    "deletePersonConfirm": "Are you sure you want to delete {name}?",
+    "canRestoreWithin30Days": "You can restore deleted items within 30 days.",
+    "checkingOrphans": "Checking for orphaned people...",
+    "orphanWarningNote": "Note: Deleting this person will leave others without any relationships, showing them as isolated nodes in the network graph:",
+    "deleteToo": "Delete them too",
+    "youLabel": "(you)",
+    "createPerson": "Create \"{name}\"",
+    "noPersonFound": "No people found matching \"{searchTerm}\"",
+    "form": {
+      "sectionDetails": "Details",
+      "sectionGroups": "Groups",
+      "sectionLastContact": "Last Contact",
+      "sectionImportantDates": "Important Dates",
+      "nameLabel": "Name",
+      "nameRequired": "Name *",
+      "surnameLabel": "Surname",
+      "nicknameLabel": "Nickname",
+      "knownThroughLabel": "Known Through",
+      "knownThroughHelp": "Select who connects you to this person. For example, if adding your friend's child, select your friend.",
+      "relationshipToYou": "Relationship to You",
+      "relationshipToYouTooltip": "You can create custom relationship types in the Relationships section",
+      "relationshipToRequired": "Relationship to {name} *",
+      "indirectConnection": "This person is connected to you through other people in your network, not directly.",
+      "willBeConnectedTo": "This person will be connected to {name}, not directly to you.",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Add notes about this person...",
+      "markdownSupport": "Supports Markdown formatting",
+      "inheritGroups": "Inherit groups from {name}",
+      "todayButton": "Today",
+      "remindMeToCatchUp": "Remind me to catch up after",
+      "selectRelationship": "Select a relationship...",
+      "searchForPerson": "Search for a person...",
+      "cancel": "Cancel",
+      "create": "Create",
+      "save": "Save",
+      "createAndAddAnother": "Create and add another",
+      "errorFutureDate": "Last contact date cannot be in the future",
+      "errorSomethingWrong": "Something went wrong",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again.",
+      "successCreated": "{name} has been added to your network",
+      "successUpdated": "{name}'s information has been updated",
+      "reminderLimitReached": "Reminder limit reached ({limit}). Upgrade to add more.",
+      "days": "days",
+      "weeks": "weeks",
+      "months": "months",
+      "years": "years",
+      "you": "You",
+      "relationshipToYouDirect": "Relationship to You",
+      "markdown": {
+        "bold": "Bold (Ctrl+B)",
+        "italic": "Italic (Ctrl+I)",
+        "heading": "Heading",
+        "quote": "Quote",
+        "bulletList": "Bullet List",
+        "numberedList": "Numbered List",
+        "link": "Link",
+        "edit": "Edit",
+        "preview": "Preview",
+        "nothingToPreview": "Nothing to preview"
+      },
+      "groups": {
+        "quickTip": "Quick tip:",
+        "quickTipMessage": "Don't see a group? Just type its name and press Enter to create it on the fly!",
+        "placeholder": "Type to search or create groups...",
+        "emptyMessage": "No groups found matching",
+        "createGroup": "Create group",
+        "helpText": "Click × on a group to remove it.",
+        "remove": "Remove",
+        "groupCreated": "Group \"{name}\" created",
+        "errorCreate": "Failed to create group"
+      },
+      "importantDates": {
+        "addDate": "+ Add Date",
+        "title": "Title",
+        "titlePlaceholder": "e.g., Birthday, Anniversary",
+        "date": "Date",
+        "remindMe": "Remind me",
+        "onlyOnce": "Only once on the specified date",
+        "every": "Every",
+        "startingFrom": "starting from the specified date",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add": "Add",
+        "edit": "Edit",
+        "delete": "Delete",
+        "noDatesYet": "No important dates added yet.",
+        "remindOnceShort": "Remind once",
+        "remindEveryShort": "Remind every {interval} {unit}",
+        "reminderLimitReached": "Reminder limit reached ({limit}). Upgrade to add more."
+      }
+    }
   },
   "groups": {
     "title": "Groups",
@@ -257,10 +498,60 @@
     "editGroup": "Edit Group",
     "deleteGroup": "Delete Group",
     "viewGroup": "View Group",
+    "createNewGroup": "Create New Group",
+    "backToGroup": "← Back to {name}",
+    "editGroupName": "Edit {name}",
+    "backToGroups": "← Back to Groups",
+    "form": {
+      "groupName": "Group Name",
+      "groupNameRequired": "Group Name *",
+      "groupNamePlaceholder": "e.g., Family, Friends, Colleagues",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional description for this group",
+      "color": "Color",
+      "customColor": "Or choose a custom color:",
+      "addPeople": "Add People (Optional)",
+      "addPeoplePlaceholder": "Type a name to add people...",
+      "addPeopleHelp": "You can add people to this group now, or do it later from the group details page.",
+      "noPeopleFound": "No people found matching",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "createGroup": "Create Group",
+      "updateGroup": "Update Group",
+      "errorSomethingWrong": "Something went wrong",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again.",
+      "successCreated": "Group \"{name}\" has been created",
+      "successUpdated": "Group \"{name}\" has been updated"
+    },
+    "members": {
+      "label": "Members ({count})",
+      "placeholder": "Type a name to add members...",
+      "emptyMessage": "No people found matching",
+      "helpText": "Type to search for people and press Enter to add them. Click × to remove members.",
+      "addedSuccess": "{name} added to {group}",
+      "removedSuccess": "{name} removed from {group}",
+      "errorAdd": "Failed to add member",
+      "errorRemove": "Failed to remove member",
+      "errorConnection": "Unable to connect to server",
+      "remove": "Remove",
+      "clearAll": "Clear all",
+      "allSelected": "All items are already selected"
+    },
+    "delete": {
+      "button": "Delete",
+      "title": "Delete Group",
+      "confirmButton": "Delete",
+      "deleting": "Deleting...",
+      "confirmMessage": "Are you sure you want to delete",
+      "onlyGroupDeleted": "This action will only remove the group, but will not delete the people themselves.",
+      "deletePeopleToo": "Delete all people in this group too",
+      "confirmDeletionPeople": "Yes, I'm sure!",
+      "errorGeneric": "Failed to delete group. Please try again.",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again."
+    },
     "groupName": "Group Name",
     "description": "Description",
     "color": "Color",
-    "members": "Members",
     "noGroups": "No groups found",
     "createFirst": "Create your first group",
     "searchGroups": "Search groups",
@@ -274,11 +565,7 @@
     "showing": "Showing {start}-{end} of {total} groups",
     "noMembersYet": "No members yet",
     "oneMember": "1 member",
-    "membersCount": "{count} members",
-    "backToGroups": "← Back to Groups",
-    "createNewGroup": "Create New Group",
-    "backToGroup": "← Back to {name}",
-    "editGroupName": "Edit {name}"
+    "membersCount": "{count} members"
   },
   "relationshipTypes": {
     "title": "Relationship Types",
@@ -300,7 +587,44 @@
     "noRelationshipTypes": "No relationship types",
     "noRelationshipTypesDescription": "Create relationship types to categorize the connections in your network.",
     "createRelationshipType": "Create Relationship Type",
-    "backToTypes": "← Back to Relationship Types"
+    "backToTypes": "← Back to Relationship Types",
+    "delete": {
+      "button": "Delete",
+      "confirmPrompt": "Delete",
+      "usedCount": "used {count} time",
+      "usedCount_plural": "used {count} times",
+      "confirmButton": "Confirm",
+      "deleting": "Deleting...",
+      "cancel": "Cancel",
+      "confirmTitle": "Confirm delete",
+      "cancelTitle": "Cancel",
+      "errorDelete": "Failed to delete relationship type"
+    },
+    "form": {
+      "labelRequired": "Relationship Label *",
+      "labelPlaceholder": "e.g., Mentor, Student, Neighbor",
+      "labelHelp": "The name that will be displayed to users",
+      "inverseRelationship": "Inverse Relationship",
+      "symmetric": "Symmetric (same as inverse)",
+      "symmetricHelp": "Both directions will use the same label (e.g., Friend ↔ Friend)",
+      "nonSymmetricHelp": "The reciprocal relationship (e.g., Parent ↔ Child, Mentor ↔ Student)",
+      "inversePlaceholder": "Search existing or type to create new...",
+      "color": "Color",
+      "customColor": "Or choose a custom color:",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "createType": "Create Type",
+      "updateType": "Update Type",
+      "errorSomethingWrong": "Something went wrong",
+      "errorConnection": "Unable to connect to server. Please check your connection and try again.",
+      "successCreated": "Relationship type \"{label}\" has been created",
+      "successUpdated": "Relationship type \"{label}\" has been updated"
+    },
+    "autocomplete": {
+      "placeholder": "Search or create inverse relationship...",
+      "createNew": "Press Enter to create new type: \"{searchTerm}\"",
+      "willCreate": "✓ Will create new type: \"{value}\""
+    }
   },
   "relationships": {
     "title": "Relationships",
