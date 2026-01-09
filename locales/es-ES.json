@@ -667,6 +667,8 @@
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signInWith": "Iniciar sesión con {provider}",
     "signUpWith": "Registrarse con {provider}",
+    "signInWithGoogle": "Iniciar sesión con Google",
+    "signUpWithGoogle": "Registrarse con Google",
     "orContinueWith": "O continuar con",
     "backToLogin": "Volver al inicio de sesión",
     "sendResetLink": "Enviar Enlace de Restablecimiento",

@@ -2,12 +2,15 @@
 
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface GoogleSignInButtonProps {
   mode?: 'signin' | 'signup';
 }
 
 export function GoogleSignInButton({ mode = 'signin' }: GoogleSignInButtonProps) {
+  const t = useTranslations('auth');
+  const tCommon = useTranslations('common');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
@@ -20,7 +23,7 @@ export function GoogleSignInButton({ mode = 'signin' }: GoogleSignInButtonProps)
     }
   };
 
-  const buttonText = mode === 'signin' ? 'Sign in with Google' : 'Sign up with Google';
+  const buttonText = mode === 'signin' ? t('signInWithGoogle') : t('signUpWithGoogle');
 
   return (
     <button
@@ -31,7 +34,7 @@ export function GoogleSignInButton({ mode = 'signin' }: GoogleSignInButtonProps)
     >
       {isLoading ? (
         <span className="text-sm font-medium text-foreground">
-          Loading...
+          {tCommon('loading')}
         </span>
       ) : (
         <>
