@@ -1,18 +1,56 @@
 import { getRequestConfig } from 'next-intl/server';
-import { getUserLocale, type SupportedLocale } from './lib/locale';
-import { auth } from './lib/auth';
+import { cookies, headers } from 'next/headers';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale, isSupportedLocale } from './lib/locale';
 
 /**
  * next-intl configuration
  * This runs on every request to determine the locale
+ * Note: We can't use auth() here due to Next.js 16 limitations
  */
 export default getRequestConfig(async () => {
-  // Get user session to determine locale
-  const session = await auth();
-  const userId = session?.user?.id;
+  // Try to get locale from cookie first
+  let locale: SupportedLocale = DEFAULT_LOCALE;
 
-  // Get locale based on user preference, cookie, or browser detection
-  const locale: SupportedLocale = await getUserLocale(userId);
+  try {
+    const cookieStore = await cookies();
+    const localeCookie = cookieStore.get('NEXT_LOCALE');
+
+    if (localeCookie?.value && isSupportedLocale(localeCookie.value)) {
+      locale = localeCookie.value;
+    } else {
+      // Fall back to browser detection
+      const headersList = await headers();
+      const acceptLanguage = headersList.get('accept-language');
+
+      if (acceptLanguage) {
+        const locales = acceptLanguage
+          .split(',')
+          .map(lang => {
+            const [localeStr] = lang.trim().split(';');
+            return localeStr.trim();
+          });
+
+        for (const browserLocale of locales) {
+          if (isSupportedLocale(browserLocale)) {
+            locale = browserLocale;
+            break;
+          }
+
+          const languageCode = browserLocale.split('-')[0].toLowerCase();
+          if (languageCode === 'es') {
+            locale = 'es-ES';
+            break;
+          }
+          if (languageCode === 'en') {
+            locale = 'en';
+            break;
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error detecting locale:', error);
+  }
 
   return {
     locale,

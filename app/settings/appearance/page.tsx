@@ -39,6 +39,14 @@ export default async function AppearanceSettingsPage() {
         <ThemeToggle userId={session.user.id} currentTheme={currentTheme} />
       </div>
 
+      {/* Language Settings */}
+      <div className="bg-surface shadow rounded-lg p-6">
+        <h2 className="text-xl font-bold text-foreground mb-4">
+          {t('language.title')}
+        </h2>
+        <LanguageSelector userId={session.user.id} currentLanguage={currentLanguage} />
+      </div>
+
       {/* Date Format Settings */}
       <div className="bg-surface shadow rounded-lg p-6">
         <h2 className="text-xl font-bold text-foreground mb-4">
@@ -48,14 +56,6 @@ export default async function AppearanceSettingsPage() {
           {t('dateFormatDescription')}
         </p>
         <DateFormatSelector userId={session.user.id} currentFormat={currentDateFormat} />
-      </div>
-
-      {/* Language Settings */}
-      <div className="bg-surface shadow rounded-lg p-6">
-        <h2 className="text-xl font-bold text-foreground mb-4">
-          {t('language.title')}
-        </h2>
-        <LanguageSelector userId={session.user.id} currentLanguage={currentLanguage} />
       </div>
     </div>
   );
