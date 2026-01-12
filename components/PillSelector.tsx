@@ -232,6 +232,7 @@ export default function PillSelector<T extends PillItem>({
                   : placeholder.replace('Type to search', 'Add more')
               }
               disabled={isLoading}
+              data-1p-ignore
               className="w-full px-2 py-1 bg-transparent text-foreground placeholder-muted focus:outline-none disabled:opacity-50"
             />
           </div>
