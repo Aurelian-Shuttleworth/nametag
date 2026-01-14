@@ -6,19 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [0.12.1](https://github.com/mattogodoy/nametag/compare/v0.12.0...v0.12.1) (2026-01-13)
+## [0.12.2](https://github.com/mattogodoy/nametag/compare/v0.12.1...v0.12.2) (2026-01-14)
 
 ### Bug Fixes
 
-* Make the self-hosted version work without setting the resend API key ([bab3b6e](https://github.com/mattogodoy/nametag/commit/bab3b6efa1e5e099e74166204d7caae6f3319a8a))
+* Fixed incorrect relationship side showing on the user details page ([11d72c3](https://github.com/mattogodoy/nametag/commit/11d72c33bbe06f3d601f4cc8b9087dcb093c4bbc))
 
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.12.2](https://github.com/mattogodoy/nametag/compare/v0.12.1...v0.12.2)
+
+- Fix incorrect relationship side showing on the user details page [`#11`](https://github.com/mattogodoy/nametag/pull/11)
+- 🐛 Fix: Fixed incorrect relationship side showing on the user details page [`11d72c3`](https://github.com/mattogodoy/nametag/commit/11d72c33bbe06f3d601f4cc8b9087dcb093c4bbc)
+
 #### [v0.12.1](https://github.com/mattogodoy/nametag/compare/v0.12.0...v0.12.1)
 
+> 13 January 2026
+
 - 🐛 Fix: Make the self-hosted version work without setting the resend API key [`bab3b6e`](https://github.com/mattogodoy/nametag/commit/bab3b6efa1e5e099e74166204d7caae6f3319a8a)
+- 🔧 Chore: release v0.12.1 [`b43b1cf`](https://github.com/mattogodoy/nametag/commit/b43b1cf294629834ffe741d1e28027361c159200)
 - 🔧 Chore: Added square logo [`6066222`](https://github.com/mattogodoy/nametag/commit/606622246819177de535ae3892d5368ab2a060e5)
 
 #### [v0.12.0](https://github.com/mattogodoy/nametag/compare/v0.11.0...v0.12.0)
