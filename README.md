@@ -347,15 +347,15 @@ Future features and improvements, ordered by priority:
 
 - [ ] Improve development setup to make contributors' lives easier [[PR #25](https://github.com/mattogodoy/nametag/pull/25)]
 - [ ] Implement CardDAV support [[Issue #15](https://github.com/mattogodoy/nametag/issues/15)]
-- [ ] Add notification support [[Issue #6](https://github.com/mattogodoy/nametag/issues/6)]
-- [ ] Implement OIDC [[Issue #10](https://github.com/mattogodoy/nametag/issues/10)]
-- [ ] Add photos to contacts [[Issue #19](https://github.com/mattogodoy/nametag/issues/19)]
-- [ ] Add custom template titles for important dates [[Issue #23](https://github.com/mattogodoy/nametag/issues/23)]
-- [ ] Add map to show people's locations [[Issue #26](https://github.com/mattogodoy/nametag/issues/26)]
+- [ ] **[HELP NEEDED]** Mobile app (Native apps for Android and iOS are preferred)
 - [ ] Add journaling capabilities [[Issue #28](https://github.com/mattogodoy/nametag/issues/28)]
 - [ ] API for third-party integrations
 - [ ] Add support for SQLite databases
-- [ ] **[HELP NEEDED]** Mobile app (Native apps for Android and iOS are preferred)
+- [ ] Implement OIDC [[Issue #10](https://github.com/mattogodoy/nametag/issues/10)]
+- [ ] Add notification support [[Issue #6](https://github.com/mattogodoy/nametag/issues/6)]
+- [ ] Add photos to contacts [[Issue #19](https://github.com/mattogodoy/nametag/issues/19)]
+- [ ] Add custom template titles for important dates [[Issue #23](https://github.com/mattogodoy/nametag/issues/23)]
+- [ ] Add map to show people's locations [[Issue #26](https://github.com/mattogodoy/nametag/issues/26)]
 - [ ] **[HELP NEEDED]** Additional language translations (French, German, Portuguese, etc.)
 - [ ] **[HELP NEEDED]** UI/UX improvements and accessibility enhancements
 - [ ] **[HELP NEEDED]** Documentation improvements (API, deployment, functionality, development, etc) [[Issue #29](https://github.com/mattogodoy/nametag/issues/29)]
@@ -364,9 +364,9 @@ Future features and improvements, ordered by priority:
 
 Features and improvements that have already been implemented:
 
-- [X] SMTP support [[Issue #4](https://github.com/mattogodoy/nametag/issues/4), [PR #21](https://github.com/mattogodoy/nametag/pull/21)]
-- [X] Option to disable registration [[Issue #9](https://github.com/mattogodoy/nametag/issues/9), [PR #17](https://github.com/mattogodoy/nametag/pull/17)]
-- [X] ARM build for docker images [[Issue #14](https://github.com/mattogodoy/nametag/issues/14), [PR #18](https://github.com/mattogodoy/nametag/pull/18)]
+- [X] ~~SMTP support~~ [[Issue #4](https://github.com/mattogodoy/nametag/issues/4), [PR #21](https://github.com/mattogodoy/nametag/pull/21)]
+- [X] ~~Option to disable registration~~ [[Issue #9](https://github.com/mattogodoy/nametag/issues/9), [PR #17](https://github.com/mattogodoy/nametag/pull/17)]
+- [X] ~~ARM build for docker images~~ [[Issue #14](https://github.com/mattogodoy/nametag/issues/14), [PR #18](https://github.com/mattogodoy/nametag/pull/18)]
 
 ## License
 
