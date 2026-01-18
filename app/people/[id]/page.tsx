@@ -208,8 +208,8 @@ export default async function PersonDetailsPage({
   );
 
   // As the relationshipTouser includes the relationship as user -> person,
-  // we are getting the inserse relationship which is person -> user
-  const relationshipToUser = person.relationshipToUser?.inverse
+  // we are getting the inverse relationship which is person -> user
+  const relationshipToUser = person.relationshipToUser?.inverse;
 
   return (
     <div className="min-h-screen bg-background">
