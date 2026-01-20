@@ -387,8 +387,8 @@ describe('Person Management Flow Integration', () => {
         (call) => call[0].data.relationshipTypeId === 'child'
       );
       expect(inverseCall).toBeDefined();
-      expect(inverseCall[0].data.personId).toBe('child-1');
-      expect(inverseCall[0].data.relatedPersonId).toBe('parent-1');
+      expect(inverseCall![0].data.personId).toBe('child-1');
+      expect(inverseCall![0].data.relatedPersonId).toBe('parent-1');
     });
   });
 });
