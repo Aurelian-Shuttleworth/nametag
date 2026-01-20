@@ -15,6 +15,8 @@ const LANGUAGES = [
   { code: 'ja-JP' as const, name: '日本語', flag: 'jp' },
 ];
 
+const labelMap = {en : 'en', 'es-ES' : 'esES', 'ja-JP' : 'jaJP'} as const;
+
 export default function LanguageSelector({ currentLanguage }: LanguageSelectorProps) {
   const t = useTranslations('settings.appearance.language');
   const tSuccess = useTranslations('success.profile');
@@ -87,7 +89,7 @@ export default function LanguageSelector({ currentLanguage }: LanguageSelectorPr
                   {language.name}
                 </div>
                 <div className="text-sm text-muted">
-                  {t(language.code === 'en' ? 'en' : 'esES' : 'jaJP')}
+                  {t(labelMap[language.code])}
                 </div>
               </div>
               {isSelected && (
