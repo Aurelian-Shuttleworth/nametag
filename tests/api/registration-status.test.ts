@@ -26,7 +26,7 @@ describe('Registration Status API', () => {
 
   describe('GET /api/auth/registration-status', () => {
     it('should return enabled when DISABLE_REGISTRATION is not set', async () => {
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
       const body = await response.json();
 
@@ -39,7 +39,7 @@ describe('Registration Status API', () => {
     it('should return enabled when DISABLE_REGISTRATION is false', async () => {
       process.env.DISABLE_REGISTRATION = 'false';
 
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
       const body = await response.json();
 
@@ -53,7 +53,7 @@ describe('Registration Status API', () => {
       process.env.DISABLE_REGISTRATION = 'true';
       mocks.userCount.mockResolvedValue(0);
 
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
       const body = await response.json();
 
@@ -67,7 +67,7 @@ describe('Registration Status API', () => {
       process.env.DISABLE_REGISTRATION = 'true';
       mocks.userCount.mockResolvedValue(1);
 
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
       const body = await response.json();
 
@@ -81,7 +81,7 @@ describe('Registration Status API', () => {
       process.env.DISABLE_REGISTRATION = 'true';
       mocks.userCount.mockResolvedValue(5);
 
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
       const body = await response.json();
 
@@ -95,7 +95,7 @@ describe('Registration Status API', () => {
       process.env.DISABLE_REGISTRATION = 'true';
       mocks.userCount.mockRejectedValue(new Error('Database error'));
 
-      const request = new Request('http://localhost/api/auth/registration-status');
+      const _request = new Request('http://localhost/api/auth/registration-status');
       const response = await registrationStatus();
 
       expect(response.status).toBe(500);

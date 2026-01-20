@@ -149,7 +149,7 @@ describe('logger', () => {
 
   describe('production logging', () => {
     it('should output JSON in production', async () => {
-      process.env.NODE_ENV = 'production';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'production';
       process.env.LOG_LEVEL = 'info';
       vi.resetModules();
       const { logger } = await import('@/lib/logger');

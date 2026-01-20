@@ -46,7 +46,7 @@ describe('Redis Client', () => {
     // Mock environment variables
     process.env.REDIS_URL = 'redis://localhost:6379';
     process.env.REDIS_PASSWORD = 'test-password';
-    process.env.NODE_ENV = 'test';
+    (process.env as { NODE_ENV?: string }).NODE_ENV = 'test';
 
     // Import after mocks are set up
     const redisModule = await import('@/lib/redis');
@@ -77,8 +77,8 @@ describe('Redis Client', () => {
 
     it('should return null when REDIS_URL is not set in development', async () => {
       delete process.env.REDIS_URL;
-      process.env.NODE_ENV = 'development';
-      
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'development';
+
       vi.resetModules();
       const redisModule = await import('@/lib/redis');
       const client = redisModule.getRedis();
@@ -160,7 +160,7 @@ describe('Redis Client', () => {
     });
 
     it('should not throw in development when connection fails', async () => {
-      process.env.NODE_ENV = 'development';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'development';
       delete process.env.REDIS_URL;
       delete process.env.SAAS_MODE;
 

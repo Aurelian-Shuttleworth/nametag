@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { NextResponse } from 'next/server';
+import type { RateLimitType } from '@/lib/rate-limit';
 
 // Mock dependencies
 vi.mock('@/lib/redis', () => ({
@@ -17,12 +18,12 @@ vi.mock('@/lib/logger', () => ({
 describe('Redis Rate Limiting', () => {
   let checkRateLimit: (
     request: Request,
-    type: string,
+    type: RateLimitType,
     identifier?: string
   ) => Promise<NextResponse | null>;
   let resetRateLimit: (
     request: Request,
-    type: string,
+    type: RateLimitType,
     identifier?: string
   ) => Promise<void>;
   let getRedis: ReturnType<typeof vi.fn>;
@@ -172,7 +173,7 @@ describe('Redis Rate Limiting', () => {
 
   describe('checkRateLimit fallback to memory', () => {
     it('should fallback to memory store when Redis is unavailable in development', async () => {
-      process.env.NODE_ENV = 'development';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'development';
       getRedis.mockReturnValue(null);
       isRedisConnected.mockReturnValue(false);
 
@@ -185,7 +186,7 @@ describe('Redis Rate Limiting', () => {
     });
 
     it('should fail open in production when Redis is unavailable', async () => {
-      process.env.NODE_ENV = 'production';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'production';
       getRedis.mockReturnValue(null);
       isRedisConnected.mockReturnValue(false);
 

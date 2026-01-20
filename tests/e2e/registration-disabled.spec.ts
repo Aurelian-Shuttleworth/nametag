@@ -106,7 +106,7 @@ test.describe('Registration Disabled Feature', () => {
       await expect(page.locator('input[name="email"]')).not.toBeVisible();
     });
 
-    test('should not allow API registration when disabled', async ({ page, request }) => {
+    test('should not allow API registration when disabled', async ({ page: _page, request }) => {
       // Try to register directly via API
       const response = await request.post('/api/auth/register', {
         data: {
@@ -123,7 +123,7 @@ test.describe('Registration Disabled Feature', () => {
       expect(body.error).toContain('disabled');
     });
 
-    test('should check status endpoint correctly', async ({ page, request }) => {
+    test('should check status endpoint correctly', async ({ page: _page, request }) => {
       // Check the registration-status endpoint
       const response = await request.get('/api/auth/registration-status');
 

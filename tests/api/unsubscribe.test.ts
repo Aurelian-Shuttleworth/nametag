@@ -23,7 +23,7 @@ vi.mock('../../lib/logger', () => ({
 
 // Mock api-utils
 vi.mock('../../lib/api-utils', () => ({
-  handleApiError: vi.fn((error: Error) => {
+  handleApiError: vi.fn((_error: Error) => {
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

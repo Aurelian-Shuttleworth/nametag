@@ -42,20 +42,20 @@ describe('LanguageSelector Component', () => {
   });
 
   it('should render language selector with description', () => {
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     expect(screen.getByText('Choose your preferred language')).toBeInTheDocument();
   });
 
   it('should display English as selected by default', () => {
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const englishButton = screen.getByRole('button', { name: /English/i });
     expect(englishButton).toHaveClass('border-blue-600');
   });
 
   it('should display Spanish as selected when currentLanguage is es-ES', () => {
-    render(<LanguageSelector userId="user1" currentLanguage="es-ES" />);
+    render(<LanguageSelector currentLanguage="es-ES" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     expect(spanishButton).toHaveClass('border-blue-600');
@@ -67,7 +67,7 @@ describe('LanguageSelector Component', () => {
       json: async () => ({ success: true, language: 'es-ES' }),
     });
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     fireEvent.click(spanishButton);
@@ -91,7 +91,7 @@ describe('LanguageSelector Component', () => {
       }), 100))
     );
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     fireEvent.click(spanishButton);
@@ -107,7 +107,7 @@ describe('LanguageSelector Component', () => {
       json: async () => ({ success: true }),
     });
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     fireEvent.click(spanishButton);
@@ -125,7 +125,7 @@ describe('LanguageSelector Component', () => {
       json: async () => ({ error: 'Failed to update' }),
     });
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     fireEvent.click(spanishButton);
@@ -139,7 +139,7 @@ describe('LanguageSelector Component', () => {
   });
 
   it('should not make API call if same language clicked', async () => {
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const englishButton = screen.getByRole('button', { name: /English/i });
     fireEvent.click(englishButton);
@@ -158,7 +158,7 @@ describe('LanguageSelector Component', () => {
       }), 100))
     );
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     const englishButton = screen.getByRole('button', { name: /English/i });
@@ -182,7 +182,7 @@ describe('LanguageSelector Component', () => {
       value: '',
     });
 
-    render(<LanguageSelector userId="user1" currentLanguage="en" />);
+    render(<LanguageSelector currentLanguage="en" />);
 
     const spanishButton = screen.getByRole('button', { name: /Español/i });
     fireEvent.click(spanishButton);

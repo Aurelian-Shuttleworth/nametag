@@ -227,7 +227,7 @@ describe('DeleteGroupButton', () => {
       });
 
       // URL should not include deletePeople parameter
-      const callUrl = mockFetch.mock.calls[0][0] as string;
+      const callUrl = vi.mocked(mockFetch).mock.calls[0][0] as string;
       expect(callUrl).not.toContain('deletePeople');
     });
 
@@ -262,7 +262,7 @@ describe('DeleteGroupButton', () => {
       });
 
       // URL should include deletePeople=true parameter
-      const callUrl = mockFetch.mock.calls[0][0] as string;
+      const callUrl = vi.mocked(mockFetch).mock.calls[0][0] as string;
       expect(callUrl).toContain('deletePeople=true');
     });
 
