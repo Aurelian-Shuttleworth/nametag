@@ -436,6 +436,7 @@ Future features and improvements, ordered by priority:
 - [ ] Add custom template titles for important dates [[Issue #23](https://github.com/mattogodoy/nametag/issues/23)]
 - [ ] Add map to show people's locations [[Issue #26](https://github.com/mattogodoy/nametag/issues/26)]
 - [ ] Support multi-user groups [[Issue #37](https://github.com/mattogodoy/nametag/issues/37)]
+- [ ] Immich integration [[Issue #46](https://github.com/mattogodoy/nametag/issues/46)]
 - [ ] **[HELP NEEDED]** Additional language translations (French, German, Portuguese, etc.)
 - [ ] **[HELP NEEDED]** UI/UX improvements and accessibility enhancements
 - [ ] **[HELP NEEDED]** Documentation improvements (API, deployment, functionality, development, etc) [[Issue #29](https://github.com/mattogodoy/nametag/issues/29)]
