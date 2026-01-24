@@ -136,30 +136,21 @@ export default function UnifiedNetworkGraph({
     // Main group for zooming/panning
     const g = svg.append('g');
 
-    // Define arrow markers for directed edges (one for each unique color and opacity)
+    // Define arrow markers for directed edges (one for each unique color)
     const defs = svg.append('defs');
     const uniqueColors = Array.from(new Set(edges.map((e) => e.color || '#999')));
-    const opacityLevels = [
-      { value: 0.05, id: 'dim' },
-      { value: 0.15, id: 'normal' },
-      { value: 0.8, id: 'highlight' }
-    ];
-
     uniqueColors.forEach((color) => {
-      opacityLevels.forEach((level) => {
-        defs.append('marker')
-          .attr('id', `arrow-${color.replace('#', '')}-${level.id}`)
-          .attr('viewBox', '0 -5 10 10')
-          .attr('refX', 18)
-          .attr('refY', 0)
-          .attr('markerWidth', 5)
-          .attr('markerHeight', 5)
-          .attr('orient', 'auto')
-          .append('path')
-          .attr('d', 'M0,-5L10,0L0,5')
-          .attr('fill', color)
-          .attr('fill-opacity', level.value);
-      });
+      defs.append('marker')
+        .attr('id', `arrow-${color.replace('#', '')}`)
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 18)
+        .attr('refY', 0)
+        .attr('markerWidth', 5)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', color)
     });
 
     // Calculate cluster positions for group clustering
@@ -233,7 +224,7 @@ export default function UnifiedNetworkGraph({
         );
     }
 
-    // Create edges with arrows
+    // Create edges
     const link = g
       .append('g')
       .selectAll('line')
@@ -250,7 +241,6 @@ export default function UnifiedNetworkGraph({
         return 0.15;
       })
       .attr('stroke-width', 2)
-      .attr('marker-end', (d) => `url(#arrow-${(d.color || '#999').replace('#', '')}-normal)`);
 
     // Animate edges connected to new nodes
     if (animateNewNodes) {
@@ -308,20 +298,17 @@ export default function UnifiedNetworkGraph({
         }
       })
       .on('mouseenter', function(_event, d) {
-        // Highlight connected edges and update their arrow markers
+        // Highlight connected edges and show their arrow markers
         link
           .transition()
           .duration(200)
           .attr('stroke-opacity', (edge) => {
             const sourceId = getNodeId(edge.source);
-            const targetId = getNodeId(edge.target);
-            return (sourceId === d.id || targetId === d.id) ? 0.8 : 0.05;
+            return sourceId === d.id ? 0.8 : 0.05;
           })
           .attr('marker-end', (edge) => {
             const sourceId = getNodeId(edge.source);
-            const targetId = getNodeId(edge.target);
-            const opacityId = (sourceId === d.id || targetId === d.id) ? 'highlight' : 'dim';
-            return `url(#arrow-${(edge.color || '#999').replace('#', '')}-${opacityId})`;
+            return sourceId === d.id ? `url(#arrow-${(edge.color || '#999').replace('#', '')}`: null;
           });
 
         // Show labels for connected edges
@@ -330,8 +317,7 @@ export default function UnifiedNetworkGraph({
           .duration(200)
           .attr('opacity', (edge) => {
             const sourceId = getNodeId(edge.source);
-            const targetId = getNodeId(edge.target);
-            return (sourceId === d.id || targetId === d.id) ? 1 : 0;
+            return sourceId === d.id ? 1 : 0;
           });
       })
       .on('mouseleave', function() {
@@ -340,7 +326,7 @@ export default function UnifiedNetworkGraph({
           .transition()
           .duration(200)
           .attr('stroke-opacity', 0.15)
-          .attr('marker-end', (d) => `url(#arrow-${(d.color || '#999').replace('#', '')}-normal)`);
+          .attr('marker-end', null);
 
         // Hide all labels
         edgeLabels
