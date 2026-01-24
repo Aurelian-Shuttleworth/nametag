@@ -102,7 +102,10 @@
         "title": "Language",
         "description": "Choose your preferred language",
         "en": "English",
-        "esES": "Español (España)"
+        "esES": "Español (España)",
+        "jaJP": "日本語",
+        "nbNO": "Norsk bokmål (Norwegian Bokmål)",
+        "deDE": "Deutsch"
       }
     },
     "security": {
@@ -325,7 +328,6 @@
   "people": {
     "title": "People",
     "addPerson": "Add Person",
-    "editPerson": "Edit Person",
     "deletePerson": "Delete Person",
     "viewPerson": "View Person",
     "fullName": "Full Name",
@@ -364,8 +366,6 @@
     "relationshipNetwork": "Relationship Network",
     "graphHelp": "Click nodes to navigate • Drag to reposition • Scroll to zoom",
     "you": "You",
-    "year": "year",
-    "years": "years",
     "ago": "ago",
     "remindOnce": "Remind once",
     "remindEvery": "Remind every {interval} {unit}",

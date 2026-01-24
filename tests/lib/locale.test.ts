@@ -31,9 +31,21 @@ describe('Locale Utilities', () => {
       expect(isSupportedLocale('es-ES')).toBe(true);
     });
 
+    it('should return true for "ja-JP"', () => {
+      expect(isSupportedLocale('ja-JP')).toBe(true);
+    });
+
+    it('should return true for "nb-NO"', () => {
+      expect(isSupportedLocale('nb-NO')).toBe(true);
+    });
+
+    it('should return true for "de-DE"', () => {
+      expect(isSupportedLocale('de-DE')).toBe(true);
+    });
+
     it('should return false for unsupported locales', () => {
       expect(isSupportedLocale('fr-FR')).toBe(false);
-      expect(isSupportedLocale('de')).toBe(false);
+      expect(isSupportedLocale('it')).toBe(false);
     });
   });
 
@@ -41,6 +53,9 @@ describe('Locale Utilities', () => {
     it('should pass through exact matches', () => {
       expect(normalizeLocale('en')).toBe('en');
       expect(normalizeLocale('es-ES')).toBe('es-ES');
+      expect(normalizeLocale('ja-JP')).toBe('ja-JP');
+      expect(normalizeLocale('nb-NO')).toBe('nb-NO');
+      expect(normalizeLocale('de-DE')).toBe('de-DE');
     });
 
     it('should map "es" to "es-ES"', () => {
@@ -51,9 +66,25 @@ describe('Locale Utilities', () => {
       expect(normalizeLocale('en-US')).toBe('en');
     });
 
+    it('should map "ja" to "ja-JP"', () => {
+      expect(normalizeLocale('ja')).toBe('ja-JP');
+    });
+
+    it('should map "nb" to "nb-NO"', () => {
+      expect(normalizeLocale('nb')).toBe('nb-NO');
+    });
+
+    it('should map "no" to "nb-NO"', () => {
+      expect(normalizeLocale('no')).toBe('nb-NO');
+    });
+
+    it('should map "de" to "de-DE"', () => {
+      expect(normalizeLocale('de')).toBe('de-DE');
+    });
+
     it('should default to "en" for unsupported locales', () => {
       expect(normalizeLocale('fr-FR')).toBe('en');
-      expect(normalizeLocale('de')).toBe('en');
+      expect(normalizeLocale('it')).toBe('en');
     });
   });
 
@@ -64,19 +95,23 @@ describe('Locale Utilities', () => {
         language: 'es-ES',
         email: 'test@example.com',
         password: 'hash',
-        emailVerified: null,
+        emailVerified: false,
         emailVerifyToken: null,
         emailVerifyExpires: null,
-        resetPasswordToken: null,
-        resetPasswordExpires: null,
-        name: null,
+        emailVerifySentAt: null,
+        passwordResetToken: null,
+        passwordResetExpires: null,
+        passwordResetSentAt: null,
+        lastLoginAt: null,
+        provider: null,
+        providerAccountId: null,
+        name: '',
         surname: null,
         nickname: null,
-        theme: null,
+        theme: 'LIGHT',
         dateFormat: 'MDY',
         createdAt: new Date(),
         updatedAt: new Date(),
-        deletedAt: null,
       });
 
       const locale = await getUserLocale('user1');
@@ -94,19 +129,23 @@ describe('Locale Utilities', () => {
         language: null,
         email: 'test@example.com',
         password: 'hash',
-        emailVerified: null,
+        emailVerified: false,
         emailVerifyToken: null,
         emailVerifyExpires: null,
-        resetPasswordToken: null,
-        resetPasswordExpires: null,
-        name: null,
+        emailVerifySentAt: null,
+        passwordResetToken: null,
+        passwordResetExpires: null,
+        passwordResetSentAt: null,
+        lastLoginAt: null,
+        provider: null,
+        providerAccountId: null,
+        name: '',
         surname: null,
         nickname: null,
-        theme: null,
+        theme: 'LIGHT',
         dateFormat: 'MDY',
         createdAt: new Date(),
         updatedAt: new Date(),
-        deletedAt: null,
       });
 
       const { cookies, headers } = await import('next/headers');
@@ -188,6 +227,83 @@ describe('Locale Utilities', () => {
       expect(locale).toBe('en');
     });
 
+    it('should detect Japanese from Accept-Language header', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('ja-JP,ja;q=0.9,en;q=0.8'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('ja-JP');
+    });
+
+    it('should map "ja" to "ja-JP"', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('ja,en;q=0.9'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('ja-JP');
+    });
+
+    it('should detect Norwegian Bokmål from Accept-Language header', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('nb-NO,nb;q=0.9,en;q=0.8'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('nb-NO');
+    });
+
+    it('should map "nb" to "nb-NO"', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('nb,en;q=0.9'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('nb-NO');
+    });
+
+    it('should map "no" to "nb-NO"', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('no,no-NO;q=0.9,en;q=0.8'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('nb-NO');
+    });
+
+    it('should detect German from Accept-Language header', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('de-DE,de;q=0.9,en;q=0.8'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('de-DE');
+    });
+
+    it('should map "de" to "de-DE"', async () => {
+      const { headers } = await import('next/headers');
+      vi.mocked(headers).mockResolvedValue({
+        get: vi.fn().mockReturnValue('de,en;q=0.9'),
+      } as any);
+
+      const locale = await detectBrowserLocale();
+
+      expect(locale).toBe('de-DE');
+    });
+    
     it('should default to "en" for unsupported languages', async () => {
       const { headers } = await import('next/headers');
       vi.mocked(headers).mockResolvedValue({

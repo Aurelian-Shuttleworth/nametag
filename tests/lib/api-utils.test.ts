@@ -257,7 +257,7 @@ describe('api-utils', () => {
 
     it('should hide error details in production', async () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'production';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'production';
 
       const error = new Error('Sensitive error details');
       const response = handleApiError(error, 'test-context');
@@ -266,12 +266,12 @@ describe('api-utils', () => {
       expect(body.error).toBe('Something went wrong');
       expect(body.error).not.toContain('Sensitive');
 
-      process.env.NODE_ENV = originalEnv;
+      (process.env as { NODE_ENV?: string }).NODE_ENV = originalEnv;
     });
 
     it('should show error details in development', async () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      (process.env as { NODE_ENV?: string }).NODE_ENV = 'development';
 
       const error = new Error('Detailed error message');
       const response = handleApiError(error, 'test-context');
@@ -279,7 +279,7 @@ describe('api-utils', () => {
       const body = await response.json();
       expect(body.error).toBe('Detailed error message');
 
-      process.env.NODE_ENV = originalEnv;
+      (process.env as { NODE_ENV?: string }).NODE_ENV = originalEnv;
     });
   });
 
@@ -348,7 +348,7 @@ describe('api-utils', () => {
 
     it('should return 401 when not authenticated', async () => {
       const { auth } = await import('@/lib/auth');
-      vi.mocked(auth).mockResolvedValue(null);
+      vi.mocked(auth).mockResolvedValue(null as never);
 
       const { withAuth: freshWithAuth } = await import('@/lib/api-utils');
 

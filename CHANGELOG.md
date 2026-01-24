@@ -6,19 +6,111 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [0.15.1](https://github.com/mattogodoy/nametag/compare/v0.15.0...v0.15.1) (2026-01-17)
+## [0.16.3](https://github.com/mattogodoy/nametag/compare/v0.16.2...v0.16.3) (2026-01-22)
 
 ### Bug Fixes
 
-* Redirect to login when email verification is disabled ([27a7cb2](https://github.com/mattogodoy/nametag/commit/27a7cb25d4a7875d46674ddeb184c277694be95e))
+* Create release for German translations (PR [#52](https://github.com/mattogodoy/nametag/issues/52)) ([dc2ed7f](https://github.com/mattogodoy/nametag/commit/dc2ed7f3cdba20cbd98a4bb2793b644c6ae4afe2))
 
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.16.3](https://github.com/mattogodoy/nametag/compare/v0.16.2...v0.16.3)
+
+- Added German Translation [`#52`](https://github.com/mattogodoy/nametag/pull/52)
+- 🐛 Fix: Create release for German translations (PR #52) [`dc2ed7f`](https://github.com/mattogodoy/nametag/commit/dc2ed7f3cdba20cbd98a4bb2793b644c6ae4afe2)
+
+#### [v0.16.2](https://github.com/mattogodoy/nametag/compare/v0.16.1...v0.16.2)
+
+> 22 January 2026
+
+- Added Norwegian translation [`#49`](https://github.com/mattogodoy/nametag/pull/49)
+- 🔧 Chore: release v0.16.2 [`6b43bdc`](https://github.com/mattogodoy/nametag/commit/6b43bdc947e6e542a59a67a4e37db448a981a720)
+- 🐛 Fix: Create release for Norwegian translations (PR #49) [`38d39e1`](https://github.com/mattogodoy/nametag/commit/38d39e1eac710f0aa8cea54ccfa164a761c473de)
+- Added Norwegian Bokmål language [`fa459d3`](https://github.com/mattogodoy/nametag/commit/fa459d31c337804dc365bdff5f1beb585f43049d)
+- added norwegian to menu list, supported locale allowlist, updated API validation message. [`8f88e9d`](https://github.com/mattogodoy/nametag/commit/8f88e9d5fb3aa9ca8eefaa10857a720568547d7b)
+- i18n.ts [`2c16e2c`](https://github.com/mattogodoy/nametag/commit/2c16e2c9982e2c7a25253a9b9090046c32045142)
+- Update Roadmap [`bdbacea`](https://github.com/mattogodoy/nametag/commit/bdbacea17bd968db2e63152e77dc41a827eeadc1)
+
+#### [v0.16.1](https://github.com/mattogodoy/nametag/compare/v0.16.0...v0.16.1)
+
+> 21 January 2026
+
+- 🐛 Fix: Add docs and a few fixes for new language [`#47`](https://github.com/mattogodoy/nametag/pull/47)
+- 🔧 Chore: Added instructions for adding a new language in the CONTRIBUTING file [`63d9253`](https://github.com/mattogodoy/nametag/commit/63d92538377ae4ceaab48cce7750798a48399fcf)
+- 🐛 Fix: Add necessary changes for new language [`c12ee99`](https://github.com/mattogodoy/nametag/commit/c12ee9993142a30e49bec6abe014f48fe862af1a)
+- 🔧 Chore: release v0.16.1 [`e4e2890`](https://github.com/mattogodoy/nametag/commit/e4e2890ca2b5fd1d8ca061aef0c9739c863351c6)
+
+#### [v0.16.0](https://github.com/mattogodoy/nametag/compare/v0.15.4...v0.16.0)
+
+> 21 January 2026
+
+- add Japanese translation [`#36`](https://github.com/mattogodoy/nametag/pull/36)
+- 🔧 Chore: release v0.16.0 [`886d55b`](https://github.com/mattogodoy/nametag/commit/886d55b6f8dfed451da42c306ca89c8dfe077b17)
+- ✨ Feature: Create release for Japanese translations (PR #36) [`c684a74`](https://github.com/mattogodoy/nametag/commit/c684a74ff1bb6465439f5bf229fa2ce39ce1ca3d)
+- Add files via upload [`a3cfe0b`](https://github.com/mattogodoy/nametag/commit/a3cfe0b680aba802b55a93a3fa5ec27250fa0078)
+- Delete package-lock.json [`2dc875c`](https://github.com/mattogodoy/nametag/commit/2dc875c3e20a43e4064122eec5e585a9e22eafd3)
+- Add files via upload [`912c055`](https://github.com/mattogodoy/nametag/commit/912c0558975c57d0da6d916f353835edeb911ea0)
+- 🔧 Chore: release v0.16.0 [`767c8a1`](https://github.com/mattogodoy/nametag/commit/767c8a151387bf5e6671bd7db58b58801cd5e4f3)
+- Add files via upload [`1a8e284`](https://github.com/mattogodoy/nametag/commit/1a8e284d5905e1e993076f70e73602de9fcd251e)
+- Delete CHANGELOG.md [`defcea8`](https://github.com/mattogodoy/nametag/commit/defcea8e51a2f0be33e5a47b1b5a047e5c0f29ee)
+- Delete package.json [`1cf3b9f`](https://github.com/mattogodoy/nametag/commit/1cf3b9fa03cba524a172408b2d2f664e9a28366c)
+- Update LanguageSelector.tsx [`9695926`](https://github.com/mattogodoy/nametag/commit/96959265f3ba6bfe391460a77571f87e045ed99f)
+- Update ja-JP.json [`9f235d7`](https://github.com/mattogodoy/nametag/commit/9f235d79437ed4559fa0ea9976faed930ad5d194)
+- Update LanguageSelector.tsx [`e56d47a`](https://github.com/mattogodoy/nametag/commit/e56d47a5a56233c8f455c3c59e195cf57a619a54)
+- Update ja-JP.json [`977f306`](https://github.com/mattogodoy/nametag/commit/977f306ab8934d7f6ab8e99fb64ffc5ed7430268)
+- Update en.json [`d84b31a`](https://github.com/mattogodoy/nametag/commit/d84b31a6aad35c6566c2589bd5e44fe337b82ee0)
+- Update es-ES.json [`13ecb56`](https://github.com/mattogodoy/nametag/commit/13ecb5619371e8894a1d73d2c8bd8f615a0e6bae)
+
+#### [v0.15.4](https://github.com/mattogodoy/nametag/compare/v0.15.3...v0.15.4)
+
+> 20 January 2026
+
+- Allow GitHub Actions bot to create new releases [`#45`](https://github.com/mattogodoy/nametag/pull/45)
+- Fix session cookie hijack vulnerability [`#44`](https://github.com/mattogodoy/nametag/pull/44)
+- 🔧 Chore: Prevent PRs from automatically bumping the release version [`#43`](https://github.com/mattogodoy/nametag/pull/43)
+- Added documentation about PR verification checks [`#42`](https://github.com/mattogodoy/nametag/pull/42)
+- 🐛 Fix: Fix for cookie hijacking vulnerability [`e68445b`](https://github.com/mattogodoy/nametag/commit/e68445b14185b028169c1269a340228dd20efe6c)
+- 🔧 Chore: Add pre-merge checks for PRs [`f68d061`](https://github.com/mattogodoy/nametag/commit/f68d0611f7992d131b65c8a2b47b664594b79dcc)
+- Disable E2E tests verification [`fc93dab`](https://github.com/mattogodoy/nametag/commit/fc93dabd00a4afb0ded59d2493087cff6b1e9070)
+- 🔧 Chore: Fix tests so they pass verifications [`64bea35`](https://github.com/mattogodoy/nametag/commit/64bea35e0a6859a52a9a1e5521799acc22e5a086)
+- Disable E2E tests verification [`e98d45b`](https://github.com/mattogodoy/nametag/commit/e98d45b4ac2ab9fa277e28d5bff8e6d998924266)
+- 🔧 Chore: Tightening the solution to the vulnerability [`6deddd1`](https://github.com/mattogodoy/nametag/commit/6deddd1890772021674af62fae4274fde8d6fd37)
+- 🔧 Chore: release v0.15.4 [`d0fc2a6`](https://github.com/mattogodoy/nametag/commit/d0fc2a63af7fe942ddfb285813fb3b6265cce1c2)
+- Mock change to trigger the verification [`bf3f5ec`](https://github.com/mattogodoy/nametag/commit/bf3f5ec0a1f5e20c9de792b1e7a7cbeffe80de67)
+- 🐛 Fix: Allow GitHub Actions bot to create new releases [`3f98c37`](https://github.com/mattogodoy/nametag/commit/3f98c371004a4e7c1199c463bed4c883e860b807)
+- 🔧 Chore: Allow manual PR verification run [`3ad37f6`](https://github.com/mattogodoy/nametag/commit/3ad37f62880b9ba378c807adaf510e37d8f0374d)
+- Update roadmap [`e7f9f53`](https://github.com/mattogodoy/nametag/commit/e7f9f534ef52b73748c19b4f70daa747170b04c7)
+
+#### [v0.15.3](https://github.com/mattogodoy/nametag/compare/v0.15.2...v0.15.3)
+
+> 19 January 2026
+
+- 🔧 Chore: release v0.15.3 [`b11c69a`](https://github.com/mattogodoy/nametag/commit/b11c69aa810269d880f9a946f0667c9113050e72)
+- 🔧 Chore: Small fixes in documentation [`1762b96`](https://github.com/mattogodoy/nametag/commit/1762b961c49ab9cec170a3ad5ff40ee704af6db6)
+- 🐛 Fix: Fix for docker entrypoint with the new env variables for database. [`6a69f97`](https://github.com/mattogodoy/nametag/commit/6a69f97170c38e1341d16f911ee114e0910fef45)
+
+#### [v0.15.2](https://github.com/mattogodoy/nametag/compare/v0.15.1...v0.15.2)
+
+> 19 January 2026
+
+- [refactor] Simplify dev environment [`#39`](https://github.com/mattogodoy/nametag/pull/39)
+- ♻️ Refactor: Many quality of life improvements for contributors and self-hosters: [`9db9abd`](https://github.com/mattogodoy/nametag/commit/9db9abd335d4a6cd569bbd2de1a5a39e65028fc0)
+- 🔧 Chore: Some improvements for devcontainers [`09d629e`](https://github.com/mattogodoy/nametag/commit/09d629e0149ab50868ac7069314e69ddecb433d6)
+- 🔧 Chore: Update roadmap and some linting in README [`6f836d5`](https://github.com/mattogodoy/nametag/commit/6f836d5f560da4a9667cb406556f5f388ab80818)
+- 🔧 Chore: Ensure the release is only published after the Docker builds succeed [`b322a63`](https://github.com/mattogodoy/nametag/commit/b322a63d5fe79ff82cb771142722cc55ae3d04a7)
+- 🔧 Chore: release v0.15.2 [`cdd2230`](https://github.com/mattogodoy/nametag/commit/cdd22308f6210fa7803e015f4194528ec058ace8)
+- 🔧 Chore: Improved documentation about Redis in the README file. [`7afdc49`](https://github.com/mattogodoy/nametag/commit/7afdc4911a85e4303444a58ed45684e0ed9e1e9b)
+- 🔧 Chore: Adjusted roadmap priorities [`b714ed9`](https://github.com/mattogodoy/nametag/commit/b714ed9f9a5e63c93875fde1a07b9ed1db1e7621)
+- 🐛 Fix: Mock commit to increase version number. Adding breaking changes notice [`5dbcb98`](https://github.com/mattogodoy/nametag/commit/5dbcb981aff934b200407e2e8f5a2a2cbeffb887)
+
 #### [v0.15.1](https://github.com/mattogodoy/nametag/compare/v0.15.0...v0.15.1)
 
+> 17 January 2026
+
 - 🔧 Chore: Added Roadmap section to the README file. [`394ddda`](https://github.com/mattogodoy/nametag/commit/394ddda85640b1b2ac51a4fdeda82cd6a471c034)
+- 🔧 Chore: release v0.15.1 [`3790dda`](https://github.com/mattogodoy/nametag/commit/3790ddaa3f22a883e38462241a51d406c8f5e38a)
 - 🐛 Fix: Redirect to login when email verification is disabled [`27a7cb2`](https://github.com/mattogodoy/nametag/commit/27a7cb25d4a7875d46674ddeb184c277694be95e)
 
 #### [v0.15.0](https://github.com/mattogodoy/nametag/compare/v0.14.1...v0.15.0)
