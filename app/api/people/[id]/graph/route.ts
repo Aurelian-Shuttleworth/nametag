@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { apiResponse, handleApiError, withAuth } from '@/lib/api-utils';
 import type { GraphNode, GraphEdge } from '@/lib/graph-utils';
 import {
-    userToGraphNode,
+  userToGraphNode,
   personToGraphNode,
   relationshipsWithUserToGraphEdges,
   relationshipToGraphEdge,
@@ -139,10 +139,8 @@ export const GET = withAuth(async (_request, session, context) => {
 
     // Add related people as nodes
     person.relationshipsFrom.forEach((rel) => {
-      if (!nodeIds.has(rel.relatedPersonId)) {
-        nodes.push(personToGraphNode(rel.relatedPerson));
-        nodeIds.add(rel.relatedPersonId);
-      }
+      nodes.push(personToGraphNode(rel.relatedPerson));
+      nodeIds.add(rel.relatedPersonId);
 
       // If the related person has direct relationship to the user, add them
       edges.push(
@@ -170,12 +168,16 @@ export const GET = withAuth(async (_request, session, context) => {
         return;
       }
 
+      // Find relationships from this related person to other related people
+      // and add edge only if this other related person's already in the graph
       rel.relatedPerson.relationshipsFrom
+        .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToGraphEdge)
         .filter((e) => e !== undefined)
         .forEach((e) => dedupedEdges.add(e));
 
       rel.relatedPerson.relationshipsFrom
+        .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToInverseGraphEdge)
         .filter((e) => e !== undefined)
         .forEach((e) => dedupedEdges.add(e));
