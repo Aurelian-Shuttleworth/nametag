@@ -169,12 +169,15 @@ export const GET = withAuth(async (request, session) => {
     const dedupedEdges = new Set<GraphEdge>();
 
     people.forEach((person) => {
+      // only add edges when both people are present in the graph
       person.relationshipsFrom
+        .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToGraphEdge)
         .filter((e) => e !== undefined)
         .forEach((e) => dedupedEdges.add(e));
 
       person.relationshipsFrom
+        .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToInverseGraphEdge)
         .filter((e) => e !== undefined)
         .forEach((e) => dedupedEdges.add(e));
