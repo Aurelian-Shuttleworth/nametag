@@ -166,7 +166,7 @@ export const GET = withAuth(async (request, session) => {
     });
 
     // Add all relationships between people as edges (deduplicated)
-    const dedupedEdges = new Set<GraphEdge>();
+    const includedEdges = new Set<string>();
 
     people.forEach((person) => {
       // only add edges when both people are present in the graph
@@ -174,17 +174,23 @@ export const GET = withAuth(async (request, session) => {
         .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToGraphEdge)
         .filter((e) => e !== undefined)
-        .forEach((e) => dedupedEdges.add(e));
+        .forEach((e) => {
+          if (!includedEdges.has(`${e.source}-${e.target}`)) {
+            edges.push(e);
+          }
+        });
 
       // include the inverse relationships too
       person.relationshipsFrom
         .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(inverseRelationshipToGraphEdge)
         .filter((e) => e !== undefined)
-        .forEach((e) => dedupedEdges.add(e));
+        .forEach((e) => {
+          if (!includedEdges.has(`${e.source}-${e.target}`)) {
+            edges.push(e);
+          }
+        });
     });
-
-    edges.push(...Array.from(dedupedEdges));
 
     return apiResponse.ok({ nodes, edges });
   } catch (error) {

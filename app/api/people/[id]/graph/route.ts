@@ -149,19 +149,27 @@ export const GET = withAuth(async (_request, session, context) => {
     });
 
     // Build edges with deduplication
-    const dedupedEdges = new Set<GraphEdge>();
+    const includedEdges = new Set<string>();
 
     // Add edges from center person to related people
     person.relationshipsFrom
       .map(relationshipToGraphEdge)
       .filter((e) => e !== undefined)
-      .forEach((e) => dedupedEdges.add(e));
+      .forEach((e) => {
+        if (!includedEdges.has(`${e.source}-${e.target}`)) {
+          edges.push(e);
+        }
+      });
 
     // include the inverse relationships too
     person.relationshipsFrom
       .map(inverseRelationshipToGraphEdge)
       .filter((e) => e !== undefined)
-      .forEach((e) => dedupedEdges.add(e));
+      .forEach((e) => {
+        if (!includedEdges.has(`${e.source}-${e.target}`)) {
+          edges.push(e);
+        }
+      });
 
     // Add edges between related people (relationships within the network)
     person.relationshipsFrom.forEach((rel) => {
@@ -175,17 +183,23 @@ export const GET = withAuth(async (_request, session, context) => {
         .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToGraphEdge)
         .filter((e) => e !== undefined)
-        .forEach((e) => dedupedEdges.add(e));
+        .forEach((e) => {
+          if (!includedEdges.has(`${e.source}-${e.target}`)) {
+            edges.push(e);
+          }
+        });
 
       // include the inverse relationships too
       rel.relatedPerson.relationshipsFrom
         .filter((r) => nodeIds.has(r.relatedPersonId))
         .map(inverseRelationshipToGraphEdge)
         .filter((e) => e !== undefined)
-        .forEach((e) => dedupedEdges.add(e));
+        .forEach((e) => {
+          if (!includedEdges.has(`${e.source}-${e.target}`)) {
+            edges.push(e);
+          }
+        });
     });
-
-    edges.push(...Array.from(dedupedEdges));
 
     return apiResponse.ok({ nodes, edges });
   } catch (error) {
