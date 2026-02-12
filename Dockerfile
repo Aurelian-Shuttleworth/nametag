@@ -13,7 +13,7 @@ COPY prisma ./prisma/
 # Install ALL dependencies (including devDependencies needed for build)
 # Use cache mount to speed up npm install across builds
 RUN --mount=type=cache,target=/root/.npm \
-    npm ci
+    npm install
 
 # Stage 2: Builder
 FROM node:20-alpine AS builder
