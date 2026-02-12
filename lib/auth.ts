@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
+import DuendeIdentityServer6 from 'next-auth/providers/duende-identity-server6';
 import { randomUUID } from 'crypto';
 import { env } from '@/lib/env';
 import { isSaasMode } from '@/lib/features';
@@ -77,6 +78,18 @@ const providers = [
         Google({
           clientId: env.GOOGLE_CLIENT_ID,
           clientSecret: env.GOOGLE_CLIENT_SECRET,
+        }),
+      ]
+    : []),
+  // Add Generic OIDC Provider (e.g., Authentik, Keycloak)
+  ...(env.OIDC_CLIENT_ID && env.OIDC_CLIENT_SECRET && env.OIDC_ISSUER
+    ? [
+        DuendeIdentityServer6({
+          id: 'oidc',
+          name: 'OIDC',
+          clientId: env.OIDC_CLIENT_ID,
+          clientSecret: env.OIDC_CLIENT_SECRET,
+          issuer: env.OIDC_ISSUER,
         }),
       ]
     : []),

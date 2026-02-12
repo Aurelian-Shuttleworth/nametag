@@ -138,7 +138,7 @@ export const GET = withAuth(async (_request, session, context) => {
     edges.push(...relationshipsWithUserToGraphEdges(person, userId));
 
     // Add related people as nodes
-    person.relationshipsFrom.forEach((rel) => {
+    person.relationshipsFrom.forEach((rel: any) => {
       nodes.push(personToGraphNode(rel.relatedPerson));
       nodeIds.add(rel.relatedPersonId);
 
@@ -154,21 +154,21 @@ export const GET = withAuth(async (_request, session, context) => {
     // Add edges from center person to related people
     person.relationshipsFrom
       .map(relationshipToGraphEdge)
-      .filter((e) => e !== undefined)
-      .forEach((e) => {
-          dedupedEdges.set(`${e.source}-${e.target}`, e);
+      .filter((e: GraphEdge | undefined) => e !== undefined)
+      .forEach((e: GraphEdge) => {
+        dedupedEdges.set(`${e.source}-${e.target}`, e);
       });
 
     // include the inverse relationships too
     person.relationshipsFrom
       .map(inverseRelationshipToGraphEdge)
-      .filter((e) => e !== undefined)
-      .forEach((e) => {
-          dedupedEdges.set(`${e.source}-${e.target}`, e);
+      .filter((e: GraphEdge | undefined) => e !== undefined)
+      .forEach((e: GraphEdge) => {
+        dedupedEdges.set(`${e.source}-${e.target}`, e);
       });
 
     // Add edges between related people (relationships within the network)
-    person.relationshipsFrom.forEach((rel) => {
+    person.relationshipsFrom.forEach((rel: any) => {
       if (!rel.relatedPerson.relationshipsFrom) {
         return;
       }
@@ -176,19 +176,19 @@ export const GET = withAuth(async (_request, session, context) => {
       // Find relationships from this related person to other related people
       // and add edge only if this other related person's already in the graph
       rel.relatedPerson.relationshipsFrom
-        .filter((r) => nodeIds.has(r.relatedPersonId))
+        .filter((r: any) => nodeIds.has(r.relatedPersonId))
         .map(relationshipToGraphEdge)
-        .filter((e) => e !== undefined)
-        .forEach((e) => {
+        .filter((e: GraphEdge | undefined) => e !== undefined)
+        .forEach((e: GraphEdge) => {
           dedupedEdges.set(`${e.source}-${e.target}`, e);
         });
 
       // include the inverse relationships too
       rel.relatedPerson.relationshipsFrom
-        .filter((r) => nodeIds.has(r.relatedPersonId))
+        .filter((r: any) => nodeIds.has(r.relatedPersonId))
         .map(inverseRelationshipToGraphEdge)
-        .filter((e) => e !== undefined)
-        .forEach((e) => {
+        .filter((e: GraphEdge | undefined) => e !== undefined)
+        .forEach((e: GraphEdge) => {
           dedupedEdges.set(`${e.source}-${e.target}`, e);
         });
     });

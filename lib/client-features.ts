@@ -5,7 +5,10 @@
 
 let cachedProviders: { google: boolean } | null = null;
 
-export async function fetchAvailableProviders(): Promise<{ google: boolean }> {
+export async function fetchAvailableProviders(): Promise<{
+  google: boolean;
+  oidc?: boolean;
+}> {
   if (cachedProviders) {
     return cachedProviders;
   }

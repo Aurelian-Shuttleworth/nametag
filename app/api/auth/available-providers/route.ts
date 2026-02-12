@@ -9,7 +9,9 @@ import { env } from '@/lib/env';
 export async function GET() {
   const providers = {
     credentials: true,
-    google: isSaasMode() && !!env.GOOGLE_CLIENT_ID && !!env.GOOGLE_CLIENT_SECRET,
+    google:
+      isSaasMode() && !!env.GOOGLE_CLIENT_ID && !!env.GOOGLE_CLIENT_SECRET,
+    oidc: !!env.OIDC_CLIENT_ID && !!env.OIDC_CLIENT_SECRET && !!env.OIDC_ISSUER,
   };
 
   return NextResponse.json({ providers });

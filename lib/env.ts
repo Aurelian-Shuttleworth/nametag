@@ -37,6 +37,11 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
 
+  // Generic OIDC - Optional
+  OIDC_CLIENT_ID: z.string().optional(),
+  OIDC_CLIENT_SECRET: z.string().optional(),
+  OIDC_ISSUER: z.string().url().optional(),
+
   // Cron
   CRON_SECRET: z.string().min(16, 'CRON_SECRET must be at least 16 characters'),
 

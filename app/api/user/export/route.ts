@@ -6,7 +6,9 @@ export const GET = withAuth(async (request, session) => {
     // Parse query params for group filtering
     const { searchParams } = new URL(request.url);
     const groupIdsParam = searchParams.get('groupIds');
-    const filterByGroups = groupIdsParam ? groupIdsParam.split(',').filter(Boolean) : null;
+    const filterByGroups = groupIdsParam
+      ? groupIdsParam.split(',').filter(Boolean)
+      : null;
 
     // Fetch all user data
     const [user, allPeople, allGroups, relationshipTypes] = await Promise.all([
@@ -81,25 +83,30 @@ export const GET = withAuth(async (request, session) => {
     ]);
 
     // Get set of exported person IDs for filtering relationships
-    const exportedPersonIds = new Set(allPeople.map((p) => p.id));
+    const exportedPersonIds = new Set(allPeople.map((p: any) => p.id));
 
     // When filtering by groups, only include those specific groups (not all groups the people belong to)
-    const exportedGroupIds = filterByGroups && filterByGroups.length > 0
-      ? new Set(filterByGroups)
-      : new Set(allPeople.flatMap((p) => p.groups.map((g) => g.group.id)));
+    const exportedGroupIds =
+      filterByGroups && filterByGroups.length > 0
+        ? new Set(filterByGroups)
+        : new Set(
+            allPeople.flatMap((p: any) => p.groups.map((g: any) => g.group.id)),
+          );
 
     // Filter relationships to only include those between exported people
     // Also filter person's groups to only include the exported groups
-    const people = allPeople.map((person) => ({
+    const people = allPeople.map((person: any) => ({
       ...person,
-      groups: person.groups.filter((g) => exportedGroupIds.has(g.group.id)),
-      relationshipsFrom: person.relationshipsFrom.filter((rel) =>
-        exportedPersonIds.has(rel.relatedPersonId)
+      groups: person.groups.filter((g: any) =>
+        exportedGroupIds.has(g.group.id),
+      ),
+      relationshipsFrom: person.relationshipsFrom.filter((rel: any) =>
+        exportedPersonIds.has(rel.relatedPersonId),
       ),
     }));
 
     // Filter groups to only include the exported groups
-    const groups = allGroups.filter((g) => exportedGroupIds.has(g.id));
+    const groups = allGroups.filter((g: any) => exportedGroupIds.has(g.id));
 
     // Build export data structure
     const exportData = {
@@ -112,13 +119,13 @@ export const GET = withAuth(async (request, session) => {
         dateFormat: user?.dateFormat,
         accountCreated: user?.createdAt,
       },
-      groups: groups.map((group) => ({
+      groups: groups.map((group: any) => ({
         id: group.id,
         name: group.name,
         description: group.description,
         color: group.color,
       })),
-      people: people.map((person) => ({
+      people: people.map((person: any) => ({
         id: person.id,
         name: person.name,
         surname: person.surname,
@@ -131,8 +138,8 @@ export const GET = withAuth(async (request, session) => {
               label: person.relationshipToUser.label,
             }
           : null,
-        groups: person.groups.map((pg) => pg.group.name),
-        relationships: person.relationshipsFrom.map((rel) => ({
+        groups: person.groups.map((pg: any) => pg.group.name),
+        relationships: person.relationshipsFrom.map((rel: any) => ({
           relatedPersonId: rel.relatedPersonId,
           relatedPersonName: `${rel.relatedPerson.name}${rel.relatedPerson.nickname ? ` '${rel.relatedPerson.nickname}'` : ''}${rel.relatedPerson.surname ? ` ${rel.relatedPerson.surname}` : ''}`,
           relationshipType: rel.relationshipType
@@ -144,7 +151,7 @@ export const GET = withAuth(async (request, session) => {
           notes: rel.notes,
         })),
       })),
-      relationshipTypes: relationshipTypes.map((type) => ({
+      relationshipTypes: relationshipTypes.map((type: any) => ({
         id: type.id,
         name: type.name,
         label: type.label,

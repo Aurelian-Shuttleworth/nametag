@@ -6,6 +6,7 @@ import { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { OidcSignInButton } from '@/components/OidcSignInButton';
 import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 import { fetchAvailableProviders } from '@/lib/client-features';
 
@@ -24,18 +25,23 @@ export default function LoginPage() {
   const [resendSuccess, setResendSuccess] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [showGoogleAuth, setShowGoogleAuth] = useState(false);
+  const [showOidcAuth, setShowOidcAuth] = useState(false);
 
   // Fetch available providers
   useEffect(() => {
     fetchAvailableProviders().then((providers) => {
       setShowGoogleAuth(providers.google);
+      setShowOidcAuth(!!providers.oidc);
     });
   }, []);
 
   // Countdown timer for cooldown
   useEffect(() => {
     if (resendCooldown > 0) {
-      const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+      const timer = setTimeout(
+        () => setResendCooldown(resendCooldown - 1),
+        1000,
+      );
       return () => clearTimeout(timer);
     }
   }, [resendCooldown]);
@@ -133,9 +139,10 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {showGoogleAuth && (
-          <div className="mt-8">
-            <GoogleSignInButton mode="signin" />
+        {(showGoogleAuth || showOidcAuth) && (
+          <div className="mt-8 space-y-3">
+            {showGoogleAuth && <GoogleSignInButton mode="signin" />}
+            {showOidcAuth && <OidcSignInButton mode="signin" />}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border"></div>
@@ -149,7 +156,10 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form className="mt-8 space-y-6 bg-surface border-2 border-primary/20 rounded-2xl p-8 shadow-2xl relative overflow-hidden" onSubmit={handleSubmit}>
+        <form
+          className="mt-8 space-y-6 bg-surface border-2 border-primary/20 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+          onSubmit={handleSubmit}
+        >
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
           {resendSuccess && (
             <div className="bg-primary/20 border-2 border-primary text-primary px-4 py-3 rounded-lg shadow-lg shadow-primary/20 relative">
@@ -172,7 +182,9 @@ export default function LoginPage() {
                       disabled={resendLoading}
                       className="text-sm font-medium underline hover:no-underline disabled:opacity-50"
                     >
-                      {resendLoading ? tCommon('loading') : t('resendVerification')}
+                      {resendLoading
+                        ? tCommon('loading')
+                        : t('resendVerification')}
                     </button>
                   )}
                 </div>
@@ -181,7 +193,10 @@ export default function LoginPage() {
           )}
           <div className="rounded-md space-y-4 relative">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-muted mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-muted mb-2"
+              >
                 {t('emailAddress')}
               </label>
               <input
@@ -197,7 +212,10 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-muted mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-muted mb-2"
+              >
                 {t('password')}
               </label>
               <input

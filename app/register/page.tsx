@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
+import { OidcSignInButton } from '@/components/OidcSignInButton';
 import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 import { fetchAvailableProviders } from '@/lib/client-features';
 
@@ -22,10 +23,13 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [validationErrors, setValidationErrors] = useState<Array<{ field: string; message: string }>>([]);
+  const [validationErrors, setValidationErrors] = useState<
+    Array<{ field: string; message: string }>
+  >([]);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showGoogleAuth, setShowGoogleAuth] = useState(false);
+  const [showOidcAuth, setShowOidcAuth] = useState(false);
   const [registrationEnabled, setRegistrationEnabled] = useState(true);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
@@ -50,6 +54,7 @@ export default function RegisterPage() {
   useEffect(() => {
     fetchAvailableProviders().then((providers) => {
       setShowGoogleAuth(providers.google);
+      setShowOidcAuth(!!providers.oidc);
     });
   }, []);
 
@@ -110,7 +115,9 @@ export default function RegisterPage() {
       }
 
       // Check if email verification is required based on the response message
-      const requiresVerification = data.message?.toLowerCase().includes('check your email');
+      const requiresVerification = data.message
+        ?.toLowerCase()
+        .includes('check your email');
 
       if (requiresVerification) {
         // Show email verification screen
@@ -213,9 +220,10 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {showGoogleAuth && (
-          <div className="mt-8">
-            <GoogleSignInButton mode="signup" />
+        {(showGoogleAuth || showOidcAuth) && (
+          <div className="mt-8 space-y-3">
+            {showGoogleAuth && <GoogleSignInButton mode="signup" />}
+            {showOidcAuth && <OidcSignInButton mode="signup" />}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border"></div>
@@ -319,7 +327,10 @@ export default function RegisterPage() {
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-border placeholder-gray-500 dark:placeholder-gray-400 text-foreground bg-surface focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder={t('password')}
               />
-              <PasswordStrengthIndicator password={password} showRequirements={true} />
+              <PasswordStrengthIndicator
+                password={password}
+                showRequirements={true}
+              />
             </div>
             <div>
               <label htmlFor="confirmPassword" className="sr-only">
