@@ -9,69 +9,69 @@ import { isSaasMode } from '@/lib/features';
 // Build providers list based on mode
 const providers = [
   CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        // Lazy load Prisma and bcrypt to avoid edge runtime issues
-        const { prisma } = await import('@/lib/prisma');
-        const bcrypt = await import('bcryptjs');
-        const { isFeatureEnabled } = await import('@/lib/features');
-        const { normalizeEmail } = await import('@/lib/api-utils');
+    name: 'credentials',
+    credentials: {
+      email: { label: 'Email', type: 'email' },
+      password: { label: 'Password', type: 'password' },
+    },
+    async authorize(credentials) {
+      // Lazy load Prisma and bcrypt to avoid edge runtime issues
+      const { prisma } = await import('@/lib/prisma');
+      const bcrypt = await import('bcryptjs');
+      const { isFeatureEnabled } = await import('@/lib/features');
+      const { normalizeEmail } = await import('@/lib/api-utils');
 
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
+      if (!credentials?.email || !credentials?.password) {
+        return null;
+      }
 
-        // Normalize email to lowercase for case-insensitive lookup
-        const email = normalizeEmail(credentials.email as string);
+      // Normalize email to lowercase for case-insensitive lookup
+      const email = normalizeEmail(credentials.email as string);
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email,
-          },
-        });
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
 
-        if (!user) {
-          return null;
-        }
+      if (!user) {
+        return null;
+      }
 
-        // OAuth users don't have passwords - they must use OAuth to sign in
-        if (!user.password) {
-          return null;
-        }
+      // OAuth users don't have passwords - they must use OAuth to sign in
+      if (!user.password) {
+        return null;
+      }
 
-        const passwordMatch = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
+      const passwordMatch = await bcrypt.compare(
+        credentials.password as string,
+        user.password,
+      );
 
-        if (!passwordMatch) {
-          return null;
-        }
+      if (!passwordMatch) {
+        return null;
+      }
 
-        // Check if email is verified (only in SaaS mode)
-        if (isFeatureEnabled('emailVerification') && !user.emailVerified) {
-          throw new Error('EMAIL_NOT_VERIFIED');
-        }
+      // Check if email is verified (only in SaaS mode)
+      if (isFeatureEnabled('emailVerification') && !user.emailVerified) {
+        throw new Error('EMAIL_NOT_VERIFIED');
+      }
 
-        // Update last login timestamp
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLoginAt: new Date() },
-        });
+      // Update last login timestamp
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { lastLoginAt: new Date() },
+      });
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          surname: user.surname,
-          nickname: user.nickname,
-        };
-      },
-    }),
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        nickname: user.nickname,
+      };
+    },
+  }),
   // Add Google provider only in SaaS mode
   ...(isSaasMode() && env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
     ? [
@@ -103,10 +103,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       // Handle OAuth sign-in
-      if (account?.provider === 'google' && profile) {
+      if (
+        (account?.provider === 'google' || account?.provider === 'oidc') &&
+        profile
+      ) {
         const { prisma } = await import('@/lib/prisma');
         const { createFreeSubscription } = await import('@/lib/billing');
-        const { createPreloadedRelationshipTypes } = await import('@/lib/relationship-types');
+        const { createPreloadedRelationshipTypes } =
+          await import('@/lib/relationship-types');
         const { normalizeEmail } = await import('@/lib/api-utils');
 
         // Normalize email to lowercase for case-insensitive lookup
