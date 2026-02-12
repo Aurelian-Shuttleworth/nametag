@@ -138,15 +138,18 @@ export const GET = withAuth(async (_request, session, context) => {
     edges.push(...relationshipsWithUserToGraphEdges(person, userId));
 
     // Add related people as nodes
-    person.relationshipsFrom.forEach((rel: any) => {
-      nodes.push(personToGraphNode(rel.relatedPerson));
-      nodeIds.add(rel.relatedPersonId);
+    person.relationshipsFrom.forEach(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (rel: { relatedPerson: any; relatedPersonId: string }) => {
+        nodes.push(personToGraphNode(rel.relatedPerson));
+        nodeIds.add(rel.relatedPersonId);
 
-      // If the related person has direct relationship to the user, add them
-      edges.push(
-        ...relationshipsWithUserToGraphEdges(rel.relatedPerson, userId),
-      );
-    });
+        // If the related person has direct relationship to the user, add them
+        edges.push(
+          ...relationshipsWithUserToGraphEdges(rel.relatedPerson, userId),
+        );
+      },
+    );
 
     // Build edges with deduplication
     const dedupedEdges = new Map<string, GraphEdge>();
@@ -168,6 +171,7 @@ export const GET = withAuth(async (_request, session, context) => {
       });
 
     // Add edges between related people (relationships within the network)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     person.relationshipsFrom.forEach((rel: any) => {
       if (!rel.relatedPerson.relationshipsFrom) {
         return;
@@ -176,7 +180,9 @@ export const GET = withAuth(async (_request, session, context) => {
       // Find relationships from this related person to other related people
       // and add edge only if this other related person's already in the graph
       rel.relatedPerson.relationshipsFrom
-        .filter((r: any) => nodeIds.has(r.relatedPersonId))
+        .filter((r: { relatedPersonId: string }) =>
+          nodeIds.has(r.relatedPersonId),
+        )
         .map(relationshipToGraphEdge)
         .filter((e: GraphEdge | undefined) => e !== undefined)
         .forEach((e: GraphEdge) => {
@@ -185,7 +191,9 @@ export const GET = withAuth(async (_request, session, context) => {
 
       // include the inverse relationships too
       rel.relatedPerson.relationshipsFrom
-        .filter((r: any) => nodeIds.has(r.relatedPersonId))
+        .filter((r: { relatedPersonId: string }) =>
+          nodeIds.has(r.relatedPersonId),
+        )
         .map(inverseRelationshipToGraphEdge)
         .filter((e: GraphEdge | undefined) => e !== undefined)
         .forEach((e: GraphEdge) => {

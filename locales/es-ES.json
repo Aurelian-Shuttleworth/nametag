@@ -680,6 +680,8 @@
     "signUpWith": "Registrarse con {provider}",
     "signInWithGoogle": "Iniciar sesión con Google",
     "signUpWithGoogle": "Registrarse con Google",
+    "signInWithOidc": "Iniciar sesión con SSO",
+    "signUpWithOidc": "Registrarse con SSO",
     "orContinueWith": "O continuar con",
     "backToLogin": "Volver al inicio de sesión",
     "sendResetLink": "Enviar Enlace de Restablecimiento",

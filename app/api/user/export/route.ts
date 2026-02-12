@@ -83,6 +83,7 @@ export const GET = withAuth(async (request, session) => {
     ]);
 
     // Get set of exported person IDs for filtering relationships
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const exportedPersonIds = new Set(allPeople.map((p: any) => p.id));
 
     // When filtering by groups, only include those specific groups (not all groups the people belong to)
@@ -90,22 +91,30 @@ export const GET = withAuth(async (request, session) => {
       filterByGroups && filterByGroups.length > 0
         ? new Set(filterByGroups)
         : new Set(
-            allPeople.flatMap((p: any) => p.groups.map((g: any) => g.group.id)),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            allPeople.flatMap((p: any) =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              p.groups.map((g: any) => g.group.id),
+            ),
           );
 
     // Filter relationships to only include those between exported people
     // Also filter person's groups to only include the exported groups
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const people = allPeople.map((person: any) => ({
       ...person,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       groups: person.groups.filter((g: any) =>
         exportedGroupIds.has(g.group.id),
       ),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       relationshipsFrom: person.relationshipsFrom.filter((rel: any) =>
         exportedPersonIds.has(rel.relatedPersonId),
       ),
     }));
 
     // Filter groups to only include the exported groups
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const groups = allGroups.filter((g: any) => exportedGroupIds.has(g.id));
 
     // Build export data structure
@@ -119,12 +128,14 @@ export const GET = withAuth(async (request, session) => {
         dateFormat: user?.dateFormat,
         accountCreated: user?.createdAt,
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       groups: groups.map((group: any) => ({
         id: group.id,
         name: group.name,
         description: group.description,
         color: group.color,
       })),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       people: people.map((person: any) => ({
         id: person.id,
         name: person.name,
@@ -138,7 +149,9 @@ export const GET = withAuth(async (request, session) => {
               label: person.relationshipToUser.label,
             }
           : null,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groups: person.groups.map((pg: any) => pg.group.name),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         relationships: person.relationshipsFrom.map((rel: any) => ({
           relatedPersonId: rel.relatedPersonId,
           relatedPersonName: `${rel.relatedPerson.name}${rel.relatedPerson.nickname ? ` '${rel.relatedPerson.nickname}'` : ''}${rel.relatedPerson.surname ? ` ${rel.relatedPerson.surname}` : ''}`,
@@ -151,6 +164,7 @@ export const GET = withAuth(async (request, session) => {
           notes: rel.notes,
         })),
       })),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       relationshipTypes: relationshipTypes.map((type: any) => ({
         id: type.id,
         name: type.name,

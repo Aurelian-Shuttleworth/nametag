@@ -680,6 +680,8 @@
     "signUpWith": "Sign up with {provider}",
     "signInWithGoogle": "Sign in with Google",
     "signUpWithGoogle": "Sign up with Google",
+    "signInWithOidc": "Sign in with SSO",
+    "signUpWithOidc": "Sign up with SSO",
     "orContinueWith": "Or continue with email",
     "backToLogin": "Back to login",
     "sendResetLink": "Send Reset Link",

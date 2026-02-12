@@ -29,9 +29,11 @@ export const GET = withAuth(async (_request, session, context) => {
 
     // Get unique person IDs related to this person
     const relatedPersonIds = new Set<string>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     person.relationshipsFrom.forEach((rel: any) => {
       if (rel.relatedPersonId) relatedPersonIds.add(rel.relatedPersonId);
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     person.relationshipsTo.forEach((rel: any) => {
       if (rel.personId) relatedPersonIds.add(rel.personId);
     });
@@ -61,18 +63,22 @@ export const GET = withAuth(async (_request, session, context) => {
     // 1. They have no direct relationship to the user (or it's soft-deleted)
     // 2. After deleting this person, they would have no other relationships
     const potentialOrphans = relatedPeople
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((p: any) => {
         // Condition 1: No direct relationship to user
         if (p.relationshipToUser) return false;
 
         // Condition 2: No other relationships besides the ones with the person being deleted
         const otherRelationships = [
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...p.relationshipsFrom.filter((r: any) => r.relatedPersonId !== id),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...p.relationshipsTo.filter((r: any) => r.personId !== id),
         ];
 
         return otherRelationships.length === 0;
       })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((p: any) => ({
         id: p.id,
         fullName: formatFullName(p),
